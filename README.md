@@ -30,7 +30,17 @@ Useful Gradle tasks and flags:
 - `test`: runs unit tests (if any).
 
 Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific 
-
-The current beta versions are free to compile and use yourself, but once the version Alpha 1.0.0 is complete this repository will go private
 project.
 For example, `core:clean` removes `build` folder only from the `core` project.
+
+## Project Details
+
+# Avaliabilty
+
+The current beta versions are free to compile and use yourself, but once the version Alpha 1.0.0 is complete this repository will go private
+
+# Current Version
+
+Beta 0.0.2
+
+
