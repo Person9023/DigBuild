@@ -1,6 +1,6 @@
 # DigBuild
 
-A [libGDX](https://libgdx.com/) project
+A [libGDX](https://libgdx.com/) project;
 Inspired by what Minecraft is and what we wish it was
 
 ## Platforms
