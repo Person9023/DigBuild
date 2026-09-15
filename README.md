@@ -35,11 +35,11 @@ For example, `core:clean` removes `build` folder only from the `core` project.
 
 ## Project Details
 
-# Avaliabilty
+### Availability
 
 The current beta versions are free to compile and use yourself, but once the version Alpha 1.0.0 is complete this repository will go private
 
-# Current Version
+### Current Version
 
 Beta 0.0.2
 
