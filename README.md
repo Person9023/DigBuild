@@ -41,6 +41,6 @@ The current beta versions are free to compile and use yourself, but once the ver
 
 ### Current Version
 
-Beta 0.0.2
+Beta 0.0.1
 
 
