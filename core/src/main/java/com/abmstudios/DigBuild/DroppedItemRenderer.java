@@ -74,9 +74,9 @@ public class DroppedItemRenderer {
         stickModel = createFlatModel(Item.STICK);
     }
 
-    // =========================================================
-    // BLOCK MODEL
-    // =========================================================
+// =========================================================
+// BLOCK MODEL
+// =========================================================
 
     private Model createBlockModel(byte block) {
 
