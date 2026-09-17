@@ -1,8 +1,8 @@
 # DigBuild
 
-A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
-
-This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws libGDX logo.
+A [libGDX](https://libgdx.com/) project  
+  
+Inspired by what Minecraft is and what we wish it was
 
 ## Platforms
 
@@ -29,5 +29,18 @@ Useful Gradle tasks and flags:
 - `lwjgl3:run`: starts the application.
 - `test`: runs unit tests (if any).
 
-Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
+Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific 
+project.
 For example, `core:clean` removes `build` folder only from the `core` project.
+
+## Project Details
+
+### Availability
+
+The current beta versions are free to compile and use yourself, but once the version Alpha 1.0.0 is complete this repository will go private
+
+### Current Version
+
+Beta 0.0.1
+
+
