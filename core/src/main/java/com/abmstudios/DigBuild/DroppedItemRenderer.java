@@ -270,9 +270,7 @@ public class DroppedItemRenderer {
 // FRONT + BACK MESH
 // =========================================================
 
-        // ---------------------------------------------------------
-        // Dimensions
-        // ---------------------------------------------------------
+    private Mesh createFlatFrontBackMesh(Item item) {
 
         float width = 1.0f;
         float height = 1.0f;
