@@ -110,7 +110,11 @@ public class DroppedItemRenderer {
 
         ModelBuilder builder = new ModelBuilder();
 
-        Material material = new Material(
+        // -----------------------------------------------------
+        // Textured front/back material
+        // -----------------------------------------------------
+
+        Material textureMaterial = new Material(
             TextureAttribute.createDiffuse(texture),
             new BlendingAttribute(
                 GL20.GL_SRC_ALPHA,
