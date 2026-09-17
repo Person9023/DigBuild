@@ -557,7 +557,7 @@ public class DroppedItemRenderer {
 
         instance.transform.setToTranslation(
             item.getX(),
-            item.getY() + item.getFloatOffset() + renderYOffset,
+            item.getY() + floatOffset + renderYOffset,
             item.getZ()
         );
 
