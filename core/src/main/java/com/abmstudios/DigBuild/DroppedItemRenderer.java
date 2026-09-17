@@ -122,7 +122,19 @@ public class DroppedItemRenderer {
             )
         );
 
-        material.set(
+        textureMaterial.set(
+            IntAttribute.createCullFace(GL20.GL_NONE)
+        );
+
+        // -----------------------------------------------------
+        // Black edge material
+        // -----------------------------------------------------
+
+        Material blackMaterial = new Material(
+            ColorAttribute.createDiffuse(Color.BLACK)
+        );
+
+        blackMaterial.set(
             IntAttribute.createCullFace(GL20.GL_NONE)
         );
 
