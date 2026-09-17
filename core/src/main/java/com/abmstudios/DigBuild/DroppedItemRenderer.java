@@ -140,6 +140,21 @@ public class DroppedItemRenderer {
 
         builder.begin();
 
+        // -----------------------------------------------------
+        // Front + Back
+        // -----------------------------------------------------
+
+        builder.part(
+            "frontBack",
+            createFlatFrontBackMesh(item),
+            GL20.GL_TRIANGLES,
+            textureMaterial
+        );
+
+        // -----------------------------------------------------
+        // Black 1-pixel edge
+        // -----------------------------------------------------
+
         builder.part(
             "item",
             createFlatItemMesh(item),
