@@ -536,6 +536,8 @@ public class DroppedItemRenderer {
         ModelInstance instance =
             new ModelInstance(model);
 
+
+
         // -----------------------------------------------------
         // Position
         // -----------------------------------------------------
