@@ -22,9 +22,9 @@ public class DroppedItemRenderer {
 
     private Texture texture;
 
-    // ---------------------------------------------------------
-    // Block models
-    // ---------------------------------------------------------
+// ---------------------------------------------------------
+// Block models
+// ---------------------------------------------------------
 
     private Model grassModel;
     private Model dirtModel;
