@@ -159,7 +159,7 @@ public class DroppedItemRenderer {
             "blackEdge",
             createFlatEdgeMesh(),
             GL20.GL_TRIANGLES,
-            material
+            blackMaterial
         );
 
         return builder.end();
