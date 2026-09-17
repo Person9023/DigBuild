@@ -169,7 +169,6 @@ public class DroppedItemRenderer {
 // ADD VERTEX
 // =========================================================
 
-
     private int addFlatVertex(
         float[] vertices,
         int vertex,
