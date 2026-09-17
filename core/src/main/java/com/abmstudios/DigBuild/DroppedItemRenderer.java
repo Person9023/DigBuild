@@ -197,6 +197,40 @@ public class DroppedItemRenderer {
         return vertex;
     }
 
+// =========================================================
+// ADD BLACK VERTEX
+// =========================================================
+
+    private int addBlackVertex(
+        float[] vertices,
+        int vertex,
+        float x,
+        float y,
+        float z,
+        float nx,
+        float ny,
+        float nz
+    ) {
+
+        vertices[vertex++] = x;
+        vertices[vertex++] = y;
+        vertices[vertex++] = z;
+
+        vertices[vertex++] = nx;
+        vertices[vertex++] = ny;
+        vertices[vertex++] = nz;
+
+        // No texture coordinates are needed for the black edge.
+        vertices[vertex++] = 0f;
+        vertices[vertex++] = 0f;
+
+        return vertex;
+    }
+
+// =========================================================
+// TEXTURE UV
+// =========================================================
+
     private float[] getTextureUV(int textureIndex) {
 
         int atlasSize = 4;
