@@ -289,7 +289,7 @@ public class DroppedItemRenderer {
 
         // -----------------------------------------------------
         // Texture coordinates
-        // ---------------------------------------------------------
+        // -----------------------------------------------------
 
         float[] uv = getTextureUV(
             item.getTextureIndex()
