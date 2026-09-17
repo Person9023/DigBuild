@@ -34,9 +34,9 @@ public class DroppedItemRenderer {
     private Model planksModel;
     private Model craftingTableModel;
 
-    // ---------------------------------------------------------
-    // Non-block models
-    // ---------------------------------------------------------
+// ---------------------------------------------------------
+// Non-block models
+// ---------------------------------------------------------
 
     private Model stickModel;
 
