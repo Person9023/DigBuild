@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 
 public class DroppedItemRenderer {
 
+
     private Texture texture;
 
     // ---------------------------------------------------------
