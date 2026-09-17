@@ -258,7 +258,7 @@ public class DroppedItemRenderer {
         float v0 =
             v1 - tileSize;
 
-        return new float[] {
+        return new float[]{
             u0, v0,
             u1, v0,
             u1, v1,
