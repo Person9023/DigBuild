@@ -540,6 +540,14 @@ public class DroppedItemRenderer {
         // Position
         // -----------------------------------------------------
 
+        float renderYOffset = 0f;
+
+        if (item.getRenderType() != DroppedItem.RenderType.BLOCK) {
+            // Flat items are 1 block tall and scaled to 30%.
+            // Raise them so their bottom sits at the item position.
+            renderYOffset = 0.15f;
+        }
+
         instance.transform.setToTranslation(
             item.getX(),
             item.getY() + item.getFloatOffset(),
