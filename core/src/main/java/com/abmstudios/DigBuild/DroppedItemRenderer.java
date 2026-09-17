@@ -305,7 +305,7 @@ public class DroppedItemRenderer {
         // 2 faces × 4 vertices × 8 floats
         // -----------------------------------------------------
 
-        float[] vertices = new float[6 * 4 * 8];
+        float[] vertices = new float[2 * 4 * 8];
 
         int vertex = 0;
 
