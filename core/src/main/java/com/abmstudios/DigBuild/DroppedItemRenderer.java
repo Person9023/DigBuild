@@ -309,9 +309,9 @@ public class DroppedItemRenderer {
 
         int vertex = 0;
 
-        // ---------------------------------------------------------
+        // -----------------------------------------------------
         // FRONT
-        // ---------------------------------------------------------
+        // -----------------------------------------------------
 
         vertex = addFlatVertex(
             vertices,
@@ -345,9 +345,9 @@ public class DroppedItemRenderer {
             u0, v1
         );
 
-        // ---------------------------------------------------------
+        // -----------------------------------------------------
         // BACK
-        // ---------------------------------------------------------
+        // -----------------------------------------------------
 
         vertex = addFlatVertex(
             vertices,
@@ -380,174 +380,25 @@ public class DroppedItemRenderer {
             0, 0, -1,
             u1, v1
         );
-        // ---------------------------------------------------------
-        // RIGHT
-        // ---------------------------------------------------------
 
-        vertex = addFlatVertex(
-            vertices,
-            vertex,
-            x1, y0, z1,
-            1, 0, 0,
-            u0, v0
-        );
-
-        vertex = addFlatVertex(
-            vertices,
-            vertex,
-            x1, y0, z0,
-            1, 0, 0,
-            u1, v0
-        );
-
-        vertex = addFlatVertex(
-            vertices,
-            vertex,
-            x1, y1, z0,
-            1, 0, 0,
-            u1, v1
-        );
-
-        vertex = addFlatVertex(
-            vertices,
-            vertex,
-            x1, y1, z1,
-            1, 0, 0,
-            u0, v1
-        );
-
-        // ---------------------------------------------------------
-        // LEFT
-        // ---------------------------------------------------------
-
-        vertex = addFlatVertex(
-            vertices,
-            vertex,
-            x0, y0, z0,
-            -1, 0, 0,
-            u0, v0
-        );
-
-        vertex = addFlatVertex(
-            vertices,
-            vertex,
-            x0, y0, z1,
-            -1, 0, 0,
-            u1, v0
-        );
-
-        vertex = addFlatVertex(
-            vertices,
-            vertex,
-            x0, y1, z1,
-            -1, 0, 0,
-            u1, v1
-        );
-
-        vertex = addFlatVertex(
-            vertices,
-            vertex,
-            x0, y1, z0,
-            -1, 0, 0,
-            u0, v1
-        );
-
-        // ---------------------------------------------------------
-        // TOP
-        // ---------------------------------------------------------
-
-        vertex = addFlatVertex(
-            vertices,
-            vertex,
-            x0, y1, z1,
-            0, 1, 0,
-            u0, v0
-        );
-
-        vertex = addFlatVertex(
-            vertices,
-            vertex,
-            x1, y1, z1,
-            0, 1, 0,
-            u1, v0
-        );
-
-        vertex = addFlatVertex(
-            vertices,
-            vertex,
-            x1, y1, z0,
-            0, 1, 0,
-            u1, v1
-        );
-
-        vertex = addFlatVertex(
-            vertices,
-            vertex,
-            x0, y1, z0,
-            0, 1, 0,
-            u0, v1
-        );
-
-        // ---------------------------------------------------------
-        // BOTTOM
-        // ---------------------------------------------------------
-
-        vertex = addFlatVertex(
-            vertices,
-            vertex,
-            x0, y0, z0,
-            0, -1, 0,
-            u0, v0
-        );
-
-        vertex = addFlatVertex(
-            vertices,
-            vertex,
-            x1, y0, z0,
-            0, -1, 0,
-            u1, v0
-        );
-
-        vertex = addFlatVertex(
-            vertices,
-            vertex,
-            x1, y0, z1,
-            0, -1, 0,
-            u1, v1
-        );
-
-        vertex = addFlatVertex(
-            vertices,
-            vertex,
-            x0, y0, z1,
-            0, -1, 0,
-            u0, v1
-        );
-
-        // ---------------------------------------------------------
+        // -----------------------------------------------------
         // Indices
-        // ---------------------------------------------------------
+        // -----------------------------------------------------
 
-        short[] indices = new short[36];
+        short[] indices = new short[]{
 
-        int index = 0;
+            // Front
+            0, 1, 2,
+            0, 2, 3,
 
-        for (short face = 0; face < 6; face++) {
+            // Back
+            4, 5, 6,
+            4, 6, 7
+        };
 
-            short start = (short)(face * 4);
-
-            indices[index++] = start;
-            indices[index++] = (short)(start + 1);
-            indices[index++] = (short)(start + 2);
-
-            indices[index++] = start;
-            indices[index++] = (short)(start + 2);
-            indices[index++] = (short)(start + 3);
-        }
-
-        // ---------------------------------------------------------
+        // -----------------------------------------------------
         // Create mesh
-        // ---------------------------------------------------------
+        // -----------------------------------------------------
 
         Mesh mesh = new Mesh(
             true,
@@ -579,9 +430,224 @@ public class DroppedItemRenderer {
         return mesh;
     }
 
-    // =========================================================
-    // RENDER
-    // =========================================================
+// =========================================================
+// BLACK EDGE MESH
+// =========================================================
+
+    private Mesh createFlatEdgeMesh() {
+
+        float width = 1.0f;
+        float height = 1.0f;
+
+        // -----------------------------------------------------
+        // One pixel of thickness
+        // -----------------------------------------------------
+
+        float thickness = 1.0f / 16.0f;
+
+        float z0 = -thickness / 2.0f;
+        float z1 = thickness / 2.0f;
+
+        float x0 = -width / 2.0f;
+        float x1 = width / 2.0f;
+
+        float y0 = -height / 2.0f;
+        float y1 = height / 2.0f;
+
+        // -----------------------------------------------------
+        // 4 edge faces × 4 vertices × 8 floats
+        // -----------------------------------------------------
+
+        float[] vertices = new float[4 * 4 * 8];
+
+        int vertex = 0;
+
+        // =====================================================
+        // RIGHT EDGE
+        // =====================================================
+
+        vertex = addBlackVertex(
+            vertices,
+            vertex,
+            x1, y0, z1,
+            1, 0, 0
+        );
+
+        vertex = addBlackVertex(
+            vertices,
+            vertex,
+            x1, y0, z0,
+            1, 0, 0
+        );
+
+        vertex = addBlackVertex(
+            vertices,
+            vertex,
+            x1, y1, z0,
+            1, 0, 0
+        );
+
+        vertex = addBlackVertex(
+            vertices,
+            vertex,
+            x1, y1, z1,
+            1, 0, 0
+        );
+
+        // =====================================================
+        // LEFT EDGE
+        // =====================================================
+
+        vertex = addBlackVertex(
+            vertices,
+            vertex,
+            x0, y0, z0,
+            -1, 0, 0
+        );
+
+        vertex = addBlackVertex(
+            vertices,
+            vertex,
+            x0, y0, z1,
+            -1, 0, 0
+        );
+
+        vertex = addBlackVertex(
+            vertices,
+            vertex,
+            x0, y1, z1,
+            -1, 0, 0
+        );
+
+        vertex = addBlackVertex(
+            vertices,
+            vertex,
+            x0, y1, z0,
+            -1, 0, 0
+        );
+
+        // =====================================================
+        // TOP EDGE
+        // =====================================================
+
+        vertex = addBlackVertex(
+            vertices,
+            vertex,
+            x0, y1, z1,
+            0, 1, 0
+        );
+
+        vertex = addBlackVertex(
+            vertices,
+            vertex,
+            x1, y1, z1,
+            0, 1, 0
+        );
+
+        vertex = addBlackVertex(
+            vertices,
+            vertex,
+            x1, y1, z0,
+            0, 1, 0
+        );
+
+        vertex = addBlackVertex(
+            vertices,
+            vertex,
+            x0, y1, z0,
+            0, 1, 0
+        );
+
+        // =====================================================
+        // BOTTOM EDGE
+        // =====================================================
+
+        vertex = addBlackVertex(
+            vertices,
+            vertex,
+            x0, y0, z0,
+            0, -1, 0
+        );
+
+        vertex = addBlackVertex(
+            vertices,
+            vertex,
+            x1, y0, z0,
+            0, -1, 0
+        );
+
+        vertex = addBlackVertex(
+            vertices,
+            vertex,
+            x1, y0, z1,
+            0, -1, 0
+        );
+
+        vertex = addBlackVertex(
+            vertices,
+            vertex,
+            x0, y0, z1,
+            0, -1, 0
+        );
+
+        // -----------------------------------------------------
+        // Indices
+        // -----------------------------------------------------
+
+        short[] indices = new short[24];
+
+        int index = 0;
+
+        for (short face = 0; face < 4; face++) {
+
+            short start = (short) (face * 4);
+
+            indices[index++] = start;
+            indices[index++] = (short) (start + 1);
+            indices[index++] = (short) (start + 2);
+
+            indices[index++] = start;
+            indices[index++] = (short) (start + 2);
+            indices[index++] = (short) (start + 3);
+        }
+
+        // -----------------------------------------------------
+        // Create mesh
+        // -----------------------------------------------------
+
+        Mesh mesh = new Mesh(
+            true,
+            vertices.length / 8,
+            indices.length,
+
+            new VertexAttribute(
+                VertexAttributes.Usage.Position,
+                3,
+                "a_position"
+            ),
+
+            new VertexAttribute(
+                VertexAttributes.Usage.Normal,
+                3,
+                "a_normal"
+            ),
+
+            new VertexAttribute(
+                VertexAttributes.Usage.TextureCoordinates,
+                2,
+                "a_texCoord0"
+            )
+        );
+
+        mesh.setVertices(vertices);
+        mesh.setIndices(indices);
+
+        return mesh;
+    }
+
+// =========================================================
+// RENDER
+// =========================================================
 
     public void render(
         ModelBatch modelBatch,
@@ -598,8 +664,6 @@ public class DroppedItemRenderer {
         ModelInstance instance =
             new ModelInstance(model);
 
-
-
         // -----------------------------------------------------
         // Position
         // -----------------------------------------------------
@@ -608,6 +672,7 @@ public class DroppedItemRenderer {
         float floatOffset = item.getFloatOffset();
 
         if (item.getRenderType() != DroppedItem.RenderType.BLOCK) {
+
             renderYOffset = 0.15f;
 
             // Prevent the floating animation from moving
@@ -667,9 +732,9 @@ public class DroppedItemRenderer {
         );
     }
 
-    // =========================================================
-    // GET MODEL
-    // =========================================================
+// =========================================================
+// GET MODEL
+// =========================================================
 
     private Model getModel(DroppedItem item) {
 
@@ -719,9 +784,9 @@ public class DroppedItemRenderer {
         return null;
     }
 
-    // =========================================================
-    // DISPOSE
-    // =========================================================
+// =========================================================
+// DISPOSE
+// =========================================================
 
     public void dispose() {
 
@@ -749,16 +814,17 @@ public class DroppedItemRenderer {
             planksModel.dispose();
         }
 
-        if (stickModel != null) {
-            stickModel.dispose();
-        }
-
         if (craftingTableModel != null) {
             craftingTableModel.dispose();
+        }
+
+        if (stickModel != null) {
+            stickModel.dispose();
         }
 
         if (texture != null) {
             texture.dispose();
         }
     }
+
 }
