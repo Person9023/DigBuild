@@ -543,6 +543,7 @@ public class DroppedItemRenderer {
         // -----------------------------------------------------
 
         float renderYOffset = 0f;
+        float floatOffset = item.getFloatOffset();
 
         if (item.getRenderType() != DroppedItem.RenderType.BLOCK) {
             // Flat items are 1 block tall and scaled to 30%.
