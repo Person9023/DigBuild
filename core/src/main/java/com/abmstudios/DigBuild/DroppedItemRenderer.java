@@ -16,6 +16,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
+import com.badlogic.gdx.graphics.Pixmap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DroppedItemRenderer {
 
@@ -110,10 +113,6 @@ public class DroppedItemRenderer {
 
         ModelBuilder builder = new ModelBuilder();
 
-        // -----------------------------------------------------
-        // Textured front/back material
-        // -----------------------------------------------------
-
         Material textureMaterial = new Material(
             TextureAttribute.createDiffuse(texture),
             new BlendingAttribute(
@@ -126,10 +125,6 @@ public class DroppedItemRenderer {
             IntAttribute.createCullFace(GL20.GL_NONE)
         );
 
-        // -----------------------------------------------------
-        // Black edge material
-        // -----------------------------------------------------
-
         Material blackMaterial = new Material(
             ColorAttribute.createDiffuse(Color.BLACK)
         );
@@ -140,10 +135,6 @@ public class DroppedItemRenderer {
 
         builder.begin();
 
-        // -----------------------------------------------------
-        // Front + Back
-        // -----------------------------------------------------
-
         builder.part(
             "frontBack",
             createFlatFrontBackMesh(item),
@@ -151,18 +142,254 @@ public class DroppedItemRenderer {
             textureMaterial
         );
 
-        // -----------------------------------------------------
-        // Black 1-pixel edge
-        // -----------------------------------------------------
-
         builder.part(
-            "blackEdge",
-            createFlatEdgeMesh(),
+            "blackEdges",
+            createPixelEdgeMesh(item),
             GL20.GL_TRIANGLES,
             blackMaterial
         );
 
         return builder.end();
+    }
+
+    private Mesh createPixelEdgeMesh(Item item) {
+
+        int textureIndex = item.getTextureIndex();
+
+        int atlasTiles = 4;
+        int tileSize = 16;
+
+        int tileX = textureIndex % atlasTiles;
+        int tileY = textureIndex / atlasTiles;
+
+        float width = 1.0f;
+        float height = 1.0f;
+        float thickness = 1.0f / 16.0f;
+
+        float x0 = -width / 2f;
+        float y0 = -height / 2f;
+
+        float z0 = -thickness / 2f;
+        float z1 = thickness / 2f;
+
+        Pixmap pixmap = new Pixmap(
+            Gdx.files.internal("textureatlas.png")
+        );
+
+        List<Float> vertexList = new ArrayList<>();
+        List<Short> indexList = new ArrayList<>();
+
+        short vertexCount = 0;
+
+        try {
+
+            int atlasWidth = pixmap.getWidth();
+            int atlasHeight = pixmap.getHeight();
+
+            int pixelSizeX = atlasWidth / atlasTiles;
+            int pixelSizeY = atlasHeight / atlasTiles;
+
+            // -------------------------------------------------
+            // Check whether a pixel is transparent.
+            // -------------------------------------------------
+
+            boolean[][] visible = new boolean[tileSize][tileSize];
+
+            for (int y = 0; y < tileSize; y++) {
+                for (int x = 0; x < tileSize; x++) {
+
+                    int px = tileX * pixelSizeX
+                        + x * pixelSizeX / tileSize;
+
+                    int py = atlasHeight
+                        - 1
+                        - (tileY * pixelSizeY
+                        + y * pixelSizeY / tileSize);
+
+                    int pixel = pixmap.getPixel(px, py);
+
+                    int alpha = pixel & 0xFF;
+
+                    visible[x][y] = alpha > 127;
+                }
+            }
+
+            // -------------------------------------------------
+            // Generate black edges around visible pixels.
+            // -------------------------------------------------
+
+            for (int y = 0; y < tileSize; y++) {
+                for (int x = 0; x < tileSize; x++) {
+
+                    if (!visible[x][y]) {
+                        continue;
+                    }
+
+                    float px0 = x0 + width * x / tileSize;
+                    float px1 = x0 + width * (x + 1) / tileSize;
+
+                    // Flip the generated geometry vertically so the outline
+                    // matches the orientation of the displayed texture.
+                    int flippedY = tileSize - 1 - y;
+
+                    float py0 = y0 + height * flippedY / tileSize;
+                    float py1 = y0 + height * (flippedY + 1) / tileSize;
+
+                    // RIGHT edge
+                    if (x == tileSize - 1 || !visible[x + 1][y]) {
+
+                        vertexCount = addBlackQuad(
+                            vertexList,
+                            indexList,
+                            vertexCount,
+                            px1, py0, z0,
+                            px1, py0, z1,
+                            px1, py1, z1,
+                            px1, py1, z0,
+                            1, 0, 0
+                        );
+                    }
+
+                    // LEFT edge
+                    if (x == 0 || !visible[x - 1][y]) {
+
+                        vertexCount = addBlackQuad(
+                            vertexList,
+                            indexList,
+                            vertexCount,
+                            px0, py0, z1,
+                            px0, py0, z0,
+                            px0, py1, z0,
+                            px0, py1, z1,
+                            -1, 0, 0
+                        );
+                    }
+
+                    // TOP edge
+                    if (y == tileSize - 1 || !visible[x][y + 1]) {
+
+                        vertexCount = addBlackQuad(
+                            vertexList,
+                            indexList,
+                            vertexCount,
+                            px0, py1, z1,
+                            px1, py1, z1,
+                            px1, py1, z0,
+                            px0, py1, z0,
+                            0, 1, 0
+                        );
+                    }
+
+                    // BOTTOM edge
+                    if (y == 0 || !visible[x][y - 1]) {
+
+                        vertexCount = addBlackQuad(
+                            vertexList,
+                            indexList,
+                            vertexCount,
+                            px0, py0, z0,
+                            px1, py0, z0,
+                            px1, py0, z1,
+                            px0, py0, z1,
+                            0, -1, 0
+                        );
+                    }
+                }
+            }
+
+        } finally {
+            pixmap.dispose();
+        }
+
+        // -----------------------------------------------------
+        // Convert lists to arrays.
+        // -----------------------------------------------------
+
+        float[] vertices = new float[vertexList.size()];
+
+        for (int i = 0; i < vertexList.size(); i++) {
+            vertices[i] = vertexList.get(i);
+        }
+
+        short[] indices = new short[indexList.size()];
+
+        for (int i = 0; i < indexList.size(); i++) {
+            indices[i] = indexList.get(i);
+        }
+
+        Mesh mesh = new Mesh(
+            true,
+            vertices.length / 8,
+            indices.length,
+
+            new VertexAttribute(
+                VertexAttributes.Usage.Position,
+                3,
+                "a_position"
+            ),
+
+            new VertexAttribute(
+                VertexAttributes.Usage.Normal,
+                3,
+                "a_normal"
+            ),
+
+            new VertexAttribute(
+                VertexAttributes.Usage.TextureCoordinates,
+                2,
+                "a_texCoord0"
+            )
+        );
+
+        mesh.setVertices(vertices);
+        mesh.setIndices(indices);
+
+        return mesh;
+    }
+
+    private short addBlackQuad(
+        List<Float> vertices,
+        List<Short> indices,
+        short vertexCount,
+
+        float x0, float y0, float z0,
+        float x1, float y1, float z1,
+        float x2, float y2, float z2,
+        float x3, float y3, float z3,
+
+        float nx, float ny, float nz
+    ) {
+
+        float[][] points = {
+            {x0, y0, z0},
+            {x1, y1, z1},
+            {x2, y2, z2},
+            {x3, y3, z3}
+        };
+
+        for (float[] p : points) {
+
+            vertices.add(p[0]);
+            vertices.add(p[1]);
+            vertices.add(p[2]);
+
+            vertices.add(nx);
+            vertices.add(ny);
+            vertices.add(nz);
+
+            vertices.add(0f);
+            vertices.add(0f);
+        }
+
+        indices.add(vertexCount);
+        indices.add((short)(vertexCount + 1));
+        indices.add((short)(vertexCount + 2));
+
+        indices.add(vertexCount);
+        indices.add((short)(vertexCount + 2));
+        indices.add((short)(vertexCount + 3));
+
+        return (short)(vertexCount + 4);
     }
 
 // =========================================================
@@ -783,7 +1010,6 @@ public class DroppedItemRenderer {
 
         return null;
     }
-
 // =========================================================
 // DISPOSE
 // =========================================================
