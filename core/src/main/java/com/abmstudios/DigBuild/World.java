@@ -24,7 +24,7 @@ import com.badlogic.gdx.files.FileHandle;
 
 public class World {
 
-    private final int renderDistance = 10;
+    private final int renderDistance = 5;
 
     // ---------------------------------------------------------
     // Save system

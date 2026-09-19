@@ -900,7 +900,7 @@ public class DroppedItemRenderer {
         // -----------------------------------------------------
 
         float renderYOffset = 0f;
-        float floatOffset = item.getFloatOffset();
+        float floatOffset = Math.max(0f, item.getFloatOffset());
 
         if (item.getRenderType() != DroppedItem.RenderType.BLOCK) {
 
