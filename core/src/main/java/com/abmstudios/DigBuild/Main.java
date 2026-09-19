@@ -379,19 +379,34 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
                 );
 
                 // Convert the block into its item
-                Item item = Block.getItem(brokenBlock);
+                // Get the item currently held
+                int selectedSlot =
+                    inventoryUI.getSelectedHotbarSlot();
 
-                if (item != null) {
+                ItemStack stack =
+                    player.getInventory().getSlot(selectedSlot);
 
-                    // Spawn the dropped item at the centre
-                    // of the broken block
-                    world.spawnDroppedItem(
-                        item,
-                        1,
-                        breakingBlockX + 0.5f,
-                        breakingBlockY + 0.5f,
-                        breakingBlockZ + 0.5f
-                    );
+                Item tool = null;
+
+                if (stack != null) {
+                    tool = stack.getItem();
+                }
+
+                // Check whether this tool is allowed to drop the block
+                if (canMine(brokenBlock, tool)) {
+
+                    Item item = Block.getItem(brokenBlock);
+
+                    if (item != null) {
+
+                        world.spawnDroppedItem(
+                            item,
+                            1,
+                            breakingBlockX + 0.5f,
+                            breakingBlockY + 0.5f,
+                            breakingBlockZ + 0.5f
+                        );
+                    }
                 }
 
                 // Remove the block
@@ -421,7 +436,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
         }
     }
 
-                        private void handleBlockPlacement() {
+    private void handleBlockPlacement() {
 
                             if (!hasSelectedBlock) {
                                 return;
@@ -534,39 +549,64 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
                             world.updateGrassBlocks();
                         }
-
     private float getBreakingTime(byte block) {
 
-        if (block == Block.GRASS) {
-            return 0.5f;
-        }
+                            float breakingTime;
 
-        if (block == Block.DIRT) {
-            return 0.5f;
-        }
+                            if (block == Block.GRASS) {
+                                breakingTime = 0.5f;
+                            }
 
-        if (block == Block.STONE) {
-            return 3f;
-        }
+                            else if (block == Block.DIRT) {
+                                breakingTime = 0.5f;
+                            }
 
-        if (block == Block.LEAVES) {
-            return 0.2f;
-        }
+                            else if (block == Block.STONE) {
+                                breakingTime = 3f;
+                            }
 
-        if (block == Block.WOOD) {
-            return 1.5f;
-        }
+                            else if (block == Block.LEAVES) {
+                                breakingTime = 0.2f;
+                            }
 
-        if (block == Block.PLANKS) {
-            return 1.3f;
-        }
+                            else if (block == Block.WOOD) {
+                                breakingTime = 1.5f;
+                            }
 
-        if (block == Block.CRAFTING_TABLE) {
-            return 1.3f;
-        }
+                            else if (block == Block.PLANKS) {
+                                breakingTime = 1.3f;
+                            }
 
-        return 1f;
-    }
+                            else if (block == Block.CRAFTING_TABLE) {
+                                breakingTime = 1.3f;
+                            }
+
+                            else {
+                                breakingTime = 1f;
+                            }
+
+
+                            // =============================================================
+                            // WOODEN PICKAXE
+                            // =============================================================
+
+                            int selectedSlot =
+                                inventoryUI.getSelectedHotbarSlot();
+
+                            ItemStack stack =
+                                player.getInventory().getSlot(selectedSlot);
+
+                            if (stack != null &&
+                                stack.getItem() == Item.WOODEN_PICKAXE) {
+
+                                // Wooden pickaxe mines stone twice as fast
+                                if (block == Block.STONE) {
+                                    breakingTime = 2.0f;
+                                }
+                            }
+
+                            return breakingTime;
+                        }
 
     private void updateCamera() {
 
@@ -890,6 +930,23 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
                             );
                         }
 
+
+    private boolean canMine(byte block, Item tool) {
+
+                            // Stone requires a pickaxe
+                            if (block == Block.STONE) {
+
+                                if (tool == Item.WOODEN_PICKAXE) {
+                                    return true;
+                                }
+
+                                return false;
+                            }
+
+                            // All other blocks can currently be mined
+                            // with any item, including an empty hand.
+                            return true;
+    }
 
                         @Override
     public void resize(int width, int height) {
