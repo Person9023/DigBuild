@@ -66,6 +66,19 @@ public class RecipeManager {
                 1
             )
         );
+        recipes.add(
+            new Recipe(
+                3,
+                3,
+                new Item[][] {
+                    { Item.STONE, Item.STONE, Item.STONE},
+                    { null, Item.STICK, null},
+                    {null, Item.STICK, null}
+                },
+                Item.STONE_PICKAXE,
+                1
+            )
+        );
     }
 
 

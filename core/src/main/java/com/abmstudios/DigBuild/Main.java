@@ -605,6 +605,15 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
                                 }
                             }
 
+                            if (stack != null &&
+                                stack.getItem() == Item.STONE_PICKAXE) {
+
+                                // Wooden pickaxe mines stone twice as fast
+                                if (block == Block.STONE) {
+                                    breakingTime = 1.0f;
+                                }
+                            }
+
                             return breakingTime;
                         }
 
@@ -937,6 +946,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
                             if (block == Block.STONE) {
 
                                 if (tool == Item.WOODEN_PICKAXE) {
+                                    return true;
+                                }
+                                if (tool == Item.STONE_PICKAXE) {
                                     return true;
                                 }
 

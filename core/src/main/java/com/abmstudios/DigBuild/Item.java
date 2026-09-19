@@ -37,6 +37,8 @@ public class Item {
 
     public static final Item WOODEN_PICKAXE =
         new Item("wooden_pickaxe", "Wooden Pickaxe", 11);
+    public static final Item STONE_PICKAXE =
+        new Item("stone_pickaxe", "Stone Pickaxe",12);
 
 
     // =============================================================
@@ -86,6 +88,7 @@ public class Item {
         if (STICK.getId().equals(id)) return STICK;
         if (CRAFTING_TABLE.getId().equals(id)) return CRAFTING_TABLE;
         if (WOODEN_PICKAXE.getId().equals(id)) return WOODEN_PICKAXE;
+        if (STONE_PICKAXE.getId().equals(id)) return STONE_PICKAXE;
 
 
         return null;

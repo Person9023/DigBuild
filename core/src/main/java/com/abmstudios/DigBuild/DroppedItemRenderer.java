@@ -43,6 +43,7 @@ public class DroppedItemRenderer {
 
     private Model stickModel;
     private Model woodenPickaxeModel;
+    private Model stonePickaxeModel;
 
 // ---------------------------------------------------------
 // Constructor
@@ -77,6 +78,7 @@ public class DroppedItemRenderer {
 
         stickModel = createFlatModel(Item.STICK);
         woodenPickaxeModel = createFlatModel(Item.WOODEN_PICKAXE);
+        stonePickaxeModel = createFlatModel(Item.STONE_PICKAXE);
     }
 
 // =========================================================
@@ -978,9 +980,7 @@ public class DroppedItemRenderer {
             return grassModel;
         }
 
-        if (droppedItem == Item.WOODEN_PICKAXE) {
-            return woodenPickaxeModel;
-        }
+
 
         if (droppedItem == Item.DIRT) {
             return dirtModel;
@@ -1014,6 +1014,14 @@ public class DroppedItemRenderer {
             return stickModel;
         }
 
+        if (droppedItem == Item.WOODEN_PICKAXE) {
+            return woodenPickaxeModel;
+        }
+
+        if (droppedItem == Item.STONE_PICKAXE) {
+            return stonePickaxeModel;
+        }
+
         return null;
     }
 // =========================================================
@@ -1028,6 +1036,10 @@ public class DroppedItemRenderer {
 
         if (woodenPickaxeModel != null) {
             woodenPickaxeModel.dispose();
+        }
+
+        if (stonePickaxeModel != null) {
+            stonePickaxeModel.dispose();
         }
 
         if (dirtModel != null) {

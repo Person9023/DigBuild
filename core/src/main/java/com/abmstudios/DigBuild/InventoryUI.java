@@ -2040,6 +2040,9 @@ public class InventoryUI {
         if (item == Item.WOODEN_PICKAXE) {
             return item.getTextureIndex();
         }
+        if (item == Item.STONE_PICKAXE) {
+            return item.getTextureIndex();
+        }
 
 
         return -1;
