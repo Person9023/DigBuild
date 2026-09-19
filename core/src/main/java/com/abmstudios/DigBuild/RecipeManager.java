@@ -52,7 +52,24 @@ public class RecipeManager {
                 1
             )
         );
+
+        recipes.add(
+            new Recipe(
+                3,
+                3,
+                new Item[][] {
+                    { Item.PLANKS, Item.PLANKS, Item.PLANKS},
+                    { null, Item.STICK, null},
+                    {null, Item.STICK, null}
+                },
+                Item.WOODEN_PICKAXE,
+                1
+            )
+        );
     }
+
+
+
 
     public static Recipe findRecipe(
         ItemStack[][] grid,

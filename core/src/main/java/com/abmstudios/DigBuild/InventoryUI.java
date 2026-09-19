@@ -2037,6 +2037,9 @@ public class InventoryUI {
         if (item == Item.CRAFTING_TABLE) {
             return Block.getTopTexture(Block.CRAFTING_TABLE);
         }
+        if (item == Item.WOODEN_PICKAXE) {
+            return item.getTextureIndex();
+        }
 
 
         return -1;

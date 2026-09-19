@@ -42,6 +42,7 @@ public class DroppedItemRenderer {
 // ---------------------------------------------------------
 
     private Model stickModel;
+    private Model woodenPickaxeModel;
 
 // ---------------------------------------------------------
 // Constructor
@@ -75,6 +76,7 @@ public class DroppedItemRenderer {
         // -----------------------------------------------------
 
         stickModel = createFlatModel(Item.STICK);
+        woodenPickaxeModel = createFlatModel(Item.WOODEN_PICKAXE);
     }
 
 // =========================================================
@@ -976,6 +978,10 @@ public class DroppedItemRenderer {
             return grassModel;
         }
 
+        if (droppedItem == Item.WOODEN_PICKAXE) {
+            return woodenPickaxeModel;
+        }
+
         if (droppedItem == Item.DIRT) {
             return dirtModel;
         }
@@ -1018,6 +1024,10 @@ public class DroppedItemRenderer {
 
         if (grassModel != null) {
             grassModel.dispose();
+        }
+
+        if (woodenPickaxeModel != null) {
+            woodenPickaxeModel.dispose();
         }
 
         if (dirtModel != null) {
