@@ -158,6 +158,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
             return Block.STONE;
         }
 
+        if (item == Item.COAL_ORE) {
+            return Block.COAL_ORE;
+        }
+
         if (item == Item.WOOD) {
             return Block.WOOD;
         }
@@ -564,6 +568,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
                             else if (block == Block.STONE) {
                                 breakingTime = 3f;
                             }
+                            else if (block == Block.COAL_ORE) {
+                                breakingTime = 3.1f;
+                            }
 
                             else if (block == Block.LEAVES) {
                                 breakingTime = 0.2f;
@@ -599,18 +606,24 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
                             if (stack != null &&
                                 stack.getItem() == Item.WOODEN_PICKAXE) {
 
-                                // Wooden pickaxe mines stone twice as fast
+
                                 if (block == Block.STONE) {
                                     breakingTime = 2.0f;
+                                }
+                                if (block == Block.COAL_ORE) {
+                                    breakingTime = 2.1f;
                                 }
                             }
 
                             if (stack != null &&
                                 stack.getItem() == Item.STONE_PICKAXE) {
 
-                                // Wooden pickaxe mines stone twice as fast
+
                                 if (block == Block.STONE) {
                                     breakingTime = 1.0f;
+                                }
+                                if (block == Block.COAL_ORE) {
+                                    breakingTime = 1.1f;
                                 }
                             }
 
@@ -954,6 +967,19 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
                                 return false;
                             }
+
+                            if (block == Block.COAL_ORE) {
+
+                                if (tool == Item.WOODEN_PICKAXE) {
+                                    return true;
+                                }
+                                if (tool == Item.STONE_PICKAXE) {
+                                    return true;
+                                }
+
+                                return false;
+                            }
+
 
                             // All other blocks can currently be mined
                             // with any item, including an empty hand.

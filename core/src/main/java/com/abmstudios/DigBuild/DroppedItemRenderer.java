@@ -36,6 +36,7 @@ public class DroppedItemRenderer {
     private Model leavesModel;
     private Model planksModel;
     private Model craftingTableModel;
+    private Model coalOreModel;
 
 // ---------------------------------------------------------
 // Non-block models
@@ -71,6 +72,7 @@ public class DroppedItemRenderer {
         leavesModel = createBlockModel(Block.LEAVES);
         planksModel = createBlockModel(Block.PLANKS);
         craftingTableModel = createBlockModel(Block.CRAFTING_TABLE);
+        coalOreModel = createBlockModel(Block.COAL_ORE);
 
         // -----------------------------------------------------
         // Non-block models
@@ -1006,6 +1008,10 @@ public class DroppedItemRenderer {
             return craftingTableModel;
         }
 
+        if (droppedItem == Item.COAL_ORE) {
+            return coalOreModel;
+        }
+
         // -----------------------------------------------------
         // Non-block items
         // -----------------------------------------------------
@@ -1065,6 +1071,10 @@ public class DroppedItemRenderer {
         if (craftingTableModel != null) {
             craftingTableModel.dispose();
         }
+        if (coalOreModel != null) {
+            coalOreModel.dispose();
+        }
+
 
         if (stickModel != null) {
             stickModel.dispose();

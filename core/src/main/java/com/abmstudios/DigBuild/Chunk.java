@@ -129,29 +129,16 @@ public class Chunk {
 
                         }
 
-                        // Occasionally allow a cave to reach the surface
-                        else if (y >= height - 4 && y < height) {
 
-                            double entranceNoise =
-                                noise.noise(
-                                    worldX * 0.08 + 500,
-                                    worldZ * 0.08 + 500
-                                );
 
-                            double cave = caveNoise(worldX, y, worldZ);
-
-                            // Only some locations can have entrances
-                            if (entranceNoise > 0.45 && cave > 0.50) {
-                                setBlock(x, y, z, Block.AIR);
-                            } else {
-                                setBlock(x, y, z, Block.STONE);
-                            }
-
-                        }
 
                         else {
 
                             setBlock(x, y, z, Block.STONE);
+                        }
+
+                        if (y < height - 3 && y >= height -4) {
+                            setBlock(x,y,z, Block.COAL_ORE);
                         }
                     }
 

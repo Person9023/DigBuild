@@ -250,6 +250,9 @@ public class DroppedItem {
         if (item == Item.CRAFTING_TABLE) {
             return RenderType.BLOCK;
         }
+        if (item == Item.COAL_ORE) {
+            return RenderType.BLOCK;
+        }
 
         // Sticks and future tools/weapons
         // will be rendered as flat/extruded items.

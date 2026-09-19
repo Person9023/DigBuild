@@ -11,6 +11,7 @@ public class Block {
     public static final byte LEAVES = 5;
     public static final byte PLANKS = 6;
     public static final byte CRAFTING_TABLE = 7;
+    public static final byte COAL_ORE = 8;
 
 
     public static int getTopTexture(byte block) {
@@ -36,6 +37,8 @@ public class Block {
                 return 7;
             case CRAFTING_TABLE:
                 return 9;
+            case COAL_ORE:
+                return 13;
 
             default:
                 return -1;
@@ -65,6 +68,8 @@ public class Block {
                 return 7;
             case CRAFTING_TABLE:
                 return 10;
+            case COAL_ORE:
+                return 13;
 
             default:
                 return -1;
@@ -94,6 +99,8 @@ public class Block {
                 return 7;
             case CRAFTING_TABLE:
                 return 10;
+            case COAL_ORE:
+                return 13;
             default:
                 return -1;
         }
@@ -122,6 +129,8 @@ public class Block {
                 return 7;
             case CRAFTING_TABLE:
                 return 10;
+            case COAL_ORE:
+                return 13;
             default:
                 return -1;
         }
@@ -150,6 +159,8 @@ public class Block {
                 return 7;
             case CRAFTING_TABLE:
                 return 10;
+            case COAL_ORE:
+                return 13;
             default:
                 return -1;
         }
@@ -178,6 +189,8 @@ public class Block {
                 return 7;
             case CRAFTING_TABLE:
                 return 10;
+            case COAL_ORE:
+                return 13;
             default:
                 return -1;
         }
@@ -206,6 +219,8 @@ public class Block {
                 return Item.PLANKS;
             case CRAFTING_TABLE:
                 return Item.CRAFTING_TABLE;
+            case COAL_ORE:
+                return Item.COAL_ORE;
             default:
                 return null;
         }

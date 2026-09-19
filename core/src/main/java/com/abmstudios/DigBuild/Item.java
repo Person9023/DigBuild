@@ -39,6 +39,8 @@ public class Item {
         new Item("wooden_pickaxe", "Wooden Pickaxe", 11);
     public static final Item STONE_PICKAXE =
         new Item("stone_pickaxe", "Stone Pickaxe",12);
+    public static final Item COAL_ORE =
+        new Item("coal_ore", "Coal Ore", 14);
 
 
     // =============================================================
@@ -89,6 +91,7 @@ public class Item {
         if (CRAFTING_TABLE.getId().equals(id)) return CRAFTING_TABLE;
         if (WOODEN_PICKAXE.getId().equals(id)) return WOODEN_PICKAXE;
         if (STONE_PICKAXE.getId().equals(id)) return STONE_PICKAXE;
+        if (COAL_ORE.getId().equals(id)) return COAL_ORE;
 
 
         return null;
