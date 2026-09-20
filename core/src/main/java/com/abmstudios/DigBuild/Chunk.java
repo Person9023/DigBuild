@@ -206,9 +206,20 @@ public class Chunk {
 
         double edgeFactor = distance / width;
 
-        int depth = (int)(
-            24.0 * endFade * (1.0 - edgeFactor * 0.25)
+        // Base chasm depth
+        double baseDepth = 24.0 * endFade * (1.0 - edgeFactor * 0.25);
+
+        // Smooth floor variation
+        double floorNoise = noise.octaveNoise(
+            worldX * 0.09,
+            worldZ * 0.09,
+            3,
+            0.5,
+            2.0
         );
+
+        // Add up to roughly 4 blocks of variation
+        int depth = (int)(baseDepth + floorNoise * 4.0);
 
         if (depth < 2) {
             return;
