@@ -142,6 +142,91 @@ public class Chunk {
         }
     }
 
+    private void generateChasmColumn(int x, int z) {
+
+        int worldX = chunkX * WIDTH + x;
+        int worldZ = chunkZ * DEPTH + z;
+
+        // Each ravine has its own finite X range.
+        int ravineLength = 90;
+        int gapLength = 110;
+        int cycleLength = ravineLength + gapLength;
+
+        int ravineIndex = Math.floorDiv(worldX, cycleLength);
+        int positionInCycle = Math.floorMod(worldX, cycleLength);
+
+        // Skip the gap between ravines.
+        if (positionInCycle >= ravineLength) {
+            return;
+        }
+
+        int surfaceY = surfaceHeights[x][z];
+
+        // Each ravine has a different centre Z and winding path.
+        Random random = new Random(
+            81723L + ravineIndex * 928371L
+        );
+
+        double baseZ = ravineIndex * 47.0
+            + random.nextInt(96);
+
+        double pathNoise = noise.octaveNoise(
+            worldX * 0.025,
+            ravineIndex * 17.31,
+            3,
+            0.5,
+            2.0
+        );
+
+        double centreZ = baseZ + pathNoise * 12.0;
+
+        double distance = Math.abs(worldZ - centreZ);
+
+        double widthNoise = noise.octaveNoise(
+            worldX * 0.035,
+            ravineIndex * 31.7,
+            2,
+            0.5,
+            2.0
+        );
+
+        double width = 4.5 + widthNoise * 2.0;
+
+        if (distance > width) {
+            return;
+        }
+
+        // Fade the ravine down at both ends.
+        double endFade = Math.min(
+            positionInCycle / 12.0,
+            (ravineLength - 1 - positionInCycle) / 12.0
+        );
+
+        endFade = Math.max(0.0, Math.min(1.0, endFade));
+
+        double edgeFactor = distance / width;
+
+        int depth = (int)(
+            24.0 * endFade * (1.0 - edgeFactor * 0.25)
+        );
+
+        if (depth < 2) {
+            return;
+        }
+
+        int floorY = Math.max(4, surfaceY - depth);
+
+        for (int y = floorY + 1; y <= surfaceY; y++) {
+            if (y >= 0 && y < HEIGHT) {
+                blocks[x][y][z] = Block.AIR;
+            }
+        }
+
+        if (floorY >= 0 && floorY < HEIGHT) {
+            blocks[x][floorY][z] = Block.STONE;
+        }
+    }
+
     public byte getBlock(int x, int y, int z) {
 
         if (x < 0 || x >= WIDTH ||
@@ -336,6 +421,13 @@ public class Chunk {
                 }
             }
         }
+        // Carve chasms after generating the normal terrain.
+        for (int x = 0; x < WIDTH; x++) {
+            for (int z = 0; z < DEPTH; z++) {
+                generateChasmColumn(x, z);
+            }
+        }
+
         generateCoal();
     }
 
