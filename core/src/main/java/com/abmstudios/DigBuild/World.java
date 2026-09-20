@@ -21,6 +21,7 @@ import java.util.concurrent.Executors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class World {
 
@@ -1763,6 +1764,38 @@ public class World {
                     }
                 });
             }
+        }
+    }
+
+
+    public void renderCoalDebugLines(
+        ShapeRenderer shapeRenderer,
+        Player player
+    ) {
+        int playerChunkX = Math.floorDiv(
+            (int) Math.floor(player.getX()),
+            Chunk.WIDTH
+        );
+
+        int playerChunkZ = Math.floorDiv(
+            (int) Math.floor(player.getZ()),
+            Chunk.DEPTH
+        );
+
+        shapeRenderer.setColor(0, 1, 0, 1);
+
+        for (Chunk chunk : chunks.values()) {
+
+            int chunkX = chunk.getChunkX();
+            int chunkZ = chunk.getChunkZ();
+
+            // Only draw debug lines for chunks within render distance.
+            if (Math.abs(chunkX - playerChunkX) > renderDistance ||
+                Math.abs(chunkZ - playerChunkZ) > renderDistance) {
+                continue;
+            }
+
+            chunk.renderCoalDebugLines(shapeRenderer);
         }
     }
 

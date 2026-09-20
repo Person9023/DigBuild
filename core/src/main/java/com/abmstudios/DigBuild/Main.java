@@ -40,6 +40,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
                         private float mouseSensitivity = 0.2f;
                         public ShapeRenderer shapeRenderer;
+                        private boolean showCoalDebugLines = false;
 
                         private Vector3 selectedBlock = new Vector3();
                         private boolean hasSelectedBlock = false;
@@ -685,6 +686,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
         }
+        // Toggle coal debug lines with P
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+            showCoalDebugLines = !showCoalDebugLines;
+        }
 
         float delta = Gdx.graphics.getDeltaTime();
 
@@ -836,6 +841,36 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
         // =========================================================
 
         inventoryUI.render();
+
+        // ----------------------------------------------------------
+        // Debug Tools
+        // ----------------------------------------------------------
+
+        // ----------------------------------------------------------
+// Debug Tools
+// ----------------------------------------------------------
+
+        if (showCoalDebugLines) {
+
+            shapeRenderer.setProjectionMatrix(cam.combined);
+
+            // Enable depth testing so blocks can hide line segments.
+            Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
+            Gdx.gl.glDepthFunc(GL20.GL_LEQUAL);
+
+            // Don't let the debug lines change the world's depth buffer.
+            Gdx.gl.glDepthMask(false);
+
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+
+            world.renderCoalDebugLines(shapeRenderer, player);
+
+            shapeRenderer.end();
+
+            // Restore the normal depth-buffer settings.
+            Gdx.gl.glDepthMask(true);
+            Gdx.gl.glDepthFunc(GL20.GL_LESS);
+        }
     }
 
 
