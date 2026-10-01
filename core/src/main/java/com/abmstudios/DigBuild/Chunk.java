@@ -228,7 +228,7 @@ public class Chunk {
 
         // Combine them
         double floorVariation =
-            floorNoiseLarge * 6.0 +
+            floorNoiseLarge * 8.0 +
                 floorNoiseSmall * 2.0;
 
         int depth = (int)(baseDepth + floorVariation);
