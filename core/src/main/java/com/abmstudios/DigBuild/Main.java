@@ -62,6 +62,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
                         private Vector3 placementBlock = new Vector3();
                         private boolean hasPlacementBlock = false;
 
+                        private MusicManager musicManager;
+
                         public Inventory getInventory() {
                             return inventory;
                         }
@@ -189,6 +191,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 
         world = new World();
+
+        musicManager = new MusicManager();
 
         droppedItemRenderer = new DroppedItemRenderer();
 
@@ -886,6 +890,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
         selectionBox.dispose();
         crosshairTexture.dispose();
         crosshairBatch.dispose();
+        musicManager.dispose();
     }
 
 
