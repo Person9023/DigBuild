@@ -64,6 +64,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
                         private MusicManager musicManager;
 
+                        private Skybox skybox;
+                        private Clouds clouds;
+
                         public Inventory getInventory() {
                             return inventory;
                         }
@@ -210,6 +213,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
         modelBatch = new ModelBatch();
 
+        skybox = new Skybox();
+
+        clouds = new Clouds();
+
         shapeRenderer = new ShapeRenderer();
 
         selectionBox = new SelectionBox();
@@ -234,7 +241,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
         cam.update();
 
 
-        int renderDistance = 1;
+        int renderDistance = 3;
 
         int size = renderDistance * 2 + 1;
 
@@ -743,9 +750,18 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
             Gdx.graphics.getHeight()
         );
 
+
+
         Gdx.gl.glClear(
             GL20.GL_COLOR_BUFFER_BIT |
                 GL20.GL_DEPTH_BUFFER_BIT
+        );
+
+        skybox.render(cam);
+
+        clouds.update(
+            Gdx.graphics.getDeltaTime(),
+            cam
         );
 
 
@@ -760,6 +776,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
             cam,
             environment
         );
+
+        clouds.render(
+            modelBatch,
+            cam,
+            environment
+        );
+
 
         for (DroppedItem item : world.getDroppedItems()) {
 
@@ -891,6 +914,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
         crosshairTexture.dispose();
         crosshairBatch.dispose();
         musicManager.dispose();
+        skybox.dispose();
+        clouds.dispose();
     }
 
 

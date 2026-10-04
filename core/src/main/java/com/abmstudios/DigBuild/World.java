@@ -25,7 +25,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class World {
 
-    private final int renderDistance = 5;
+    private final int renderDistance = 3;
 
     // ---------------------------------------------------------
     // Save system
