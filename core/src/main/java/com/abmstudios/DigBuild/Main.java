@@ -67,6 +67,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
                         private Skybox skybox;
                         private Clouds clouds;
 
+                        private DayNightCycle dayNightCycle;
+
+
                         public Inventory getInventory() {
                             return inventory;
                         }
@@ -205,15 +208,14 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
             0.25f, 0.25f, 0.25f, 1f
         ));
 
-        environment.add(new DirectionalLight().set(
-            1.0f, 1.0f, 1.0f,
-            -1f, -0.8f, -0.2f
-        ));
+
 
 
         modelBatch = new ModelBatch();
 
         skybox = new Skybox();
+
+        dayNightCycle = new DayNightCycle(environment);
 
         clouds = new Clouds();
 
@@ -757,12 +759,20 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
                 GL20.GL_DEPTH_BUFFER_BIT
         );
 
-        skybox.render(cam);
+
+
+        dayNightCycle.update(delta);
+
+        skybox.setTimeOfDay(
+            dayNightCycle.getTimeOfDay()
+        );
 
         clouds.update(
-            Gdx.graphics.getDeltaTime(),
+            delta,
             cam
         );
+
+        skybox.render(cam);
 
 
         // =========================================================
