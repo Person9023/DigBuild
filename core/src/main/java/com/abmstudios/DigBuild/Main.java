@@ -41,6 +41,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
                         private float mouseSensitivity = 0.2f;
                         public ShapeRenderer shapeRenderer;
                         private boolean showCoalDebugLines = false;
+                        private boolean showIronDebugLines = false;
 
                         private Vector3 selectedBlock = new Vector3();
                         private boolean hasSelectedBlock = false;
@@ -169,6 +170,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
         if (item == Item.COAL_ORE) {
             return Block.COAL_ORE;
+        }
+
+        if (item == Item.IRON_ORE) {
+            return Block.IRON_ORE;
         }
 
         if (item == Item.WOOD) {
@@ -586,6 +591,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
                                 breakingTime = 3.1f;
                             }
 
+                            else if (block == Block.IRON_ORE) {
+                                breakingTime = 4.1f;
+                            }
+
                             else if (block == Block.LEAVES) {
                                 breakingTime = 0.2f;
                             }
@@ -627,6 +636,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
                                 if (block == Block.COAL_ORE) {
                                     breakingTime = 2.1f;
                                 }
+                                if (block == Block.COAL_ORE) {
+                                    breakingTime = 3.8f;
+                                }
                             }
 
                             if (stack != null &&
@@ -638,6 +650,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
                                 }
                                 if (block == Block.COAL_ORE) {
                                     breakingTime = 1.1f;
+                                }
+                                if (block == Block.IRON_ORE) {
+                                    breakingTime = 1.6f;
                                 }
                             }
 
@@ -702,6 +717,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
         // Toggle coal debug lines with P
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             showCoalDebugLines = !showCoalDebugLines;
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.O)) {
+            showIronDebugLines = !showIronDebugLines;
         }
 
         float delta = Gdx.graphics.getDeltaTime();
@@ -901,6 +919,28 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 
             world.renderCoalDebugLines(shapeRenderer, player);
+
+            shapeRenderer.end();
+
+            // Restore the normal depth-buffer settings.
+            Gdx.gl.glDepthMask(true);
+            Gdx.gl.glDepthFunc(GL20.GL_LESS);
+        }
+
+        if (showIronDebugLines) {
+
+            shapeRenderer.setProjectionMatrix(cam.combined);
+
+            // Enable depth testing so blocks can hide line segments.
+            Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
+            Gdx.gl.glDepthFunc(GL20.GL_LEQUAL);
+
+            // Don't let the debug lines change the world's depth buffer.
+            Gdx.gl.glDepthMask(false);
+
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+
+            world.renderIronDebugLines(shapeRenderer, player);
 
             shapeRenderer.end();
 

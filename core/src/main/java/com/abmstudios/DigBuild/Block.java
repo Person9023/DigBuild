@@ -12,6 +12,8 @@ public class Block {
     public static final byte PLANKS = 6;
     public static final byte CRAFTING_TABLE = 7;
     public static final byte COAL_ORE = 8;
+    public static final byte IRON_ORE = 9;
+    public static final byte FURNACE = 10;
 
 
     public static int getTopTexture(byte block) {
@@ -39,6 +41,10 @@ public class Block {
                 return 9;
             case COAL_ORE:
                 return 13;
+            case IRON_ORE:
+                return 14;
+            case FURNACE:
+                return 2;
 
             default:
                 return -1;
@@ -70,7 +76,10 @@ public class Block {
                 return 10;
             case COAL_ORE:
                 return 13;
-
+            case IRON_ORE:
+                return 14;
+            case FURNACE:
+                return 2;
             default:
                 return -1;
         }
@@ -101,6 +110,10 @@ public class Block {
                 return 10;
             case COAL_ORE:
                 return 13;
+            case IRON_ORE:
+                return 14;
+            case FURNACE:
+                return 15;
             default:
                 return -1;
         }
@@ -131,6 +144,10 @@ public class Block {
                 return 10;
             case COAL_ORE:
                 return 13;
+            case IRON_ORE:
+                return 14;
+            case FURNACE:
+                return 2;
             default:
                 return -1;
         }
@@ -161,6 +178,10 @@ public class Block {
                 return 10;
             case COAL_ORE:
                 return 13;
+            case IRON_ORE:
+                return 14;
+            case FURNACE:
+                return 2;
             default:
                 return -1;
         }
@@ -191,6 +212,10 @@ public class Block {
                 return 10;
             case COAL_ORE:
                 return 13;
+            case IRON_ORE:
+                return 14;
+            case FURNACE:
+                return 2;
             default:
                 return -1;
         }
@@ -221,6 +246,10 @@ public class Block {
                 return Item.CRAFTING_TABLE;
             case COAL_ORE:
                 return Item.COAL_ORE;
+            case IRON_ORE:
+                return Item.IRON_ORE;
+            case FURNACE:
+                return Item.FURNACE;
             default:
                 return null;
         }

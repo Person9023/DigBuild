@@ -79,6 +79,20 @@ public class RecipeManager {
                 1
             )
         );
+
+        recipes.add(
+            new Recipe(
+                3,
+                3,
+                new Item[][] {
+                    { Item.STONE, Item.STONE, Item.STONE},
+                    { Item.STONE, null,       Item.STONE},
+                    { Item.STONE, Item.STONE, Item.STONE}
+                },
+                Item.FURNACE,
+                1
+            )
+        );
     }
 
 

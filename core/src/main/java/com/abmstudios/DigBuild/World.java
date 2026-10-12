@@ -1799,6 +1799,37 @@ public class World {
         }
     }
 
+    public void renderIronDebugLines(
+        ShapeRenderer shapeRenderer,
+        Player player
+    ) {
+        int playerChunkX = Math.floorDiv(
+            (int) Math.floor(player.getX()),
+            Chunk.WIDTH
+        );
+
+        int playerChunkZ = Math.floorDiv(
+            (int) Math.floor(player.getZ()),
+            Chunk.DEPTH
+        );
+
+        shapeRenderer.setColor(0, 1, 0, 1);
+
+        for (Chunk chunk : chunks.values()) {
+
+            int chunkX = chunk.getChunkX();
+            int chunkZ = chunk.getChunkZ();
+
+            // Only draw debug lines for chunks within render distance.
+            if (Math.abs(chunkX - playerChunkX) > renderDistance ||
+                Math.abs(chunkZ - playerChunkZ) > renderDistance) {
+                continue;
+            }
+
+            chunk.renderIronDebugLines(shapeRenderer);
+        }
+    }
+
     private void processCompletedTrees() {
 
         TreeGenerationResult result;

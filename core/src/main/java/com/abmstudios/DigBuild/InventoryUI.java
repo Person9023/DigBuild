@@ -2046,6 +2046,12 @@ public class InventoryUI {
         if (item == Item.STONE_PICKAXE) {
             return item.getTextureIndex();
         }
+        if (item == Item.IRON_ORE) {
+            return Block.getTopTexture(Block.IRON_ORE);
+        }
+        if (item == Item.FURNACE) {
+            return Block.getFrontTexture(Block.FURNACE);
+        }
 
 
         return -1;
