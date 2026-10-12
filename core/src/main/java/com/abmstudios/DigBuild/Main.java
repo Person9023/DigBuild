@@ -1095,6 +1095,15 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
                                 return false;
                             }
 
+                            if (block == Block.IRON_ORE) {
+
+                                if (tool == Item.STONE_PICKAXE) {
+                                    return true;
+                                }
+
+                                return false;
+                            }
+
 
                             // All other blocks can currently be mined
                             // with any item, including an empty hand.
