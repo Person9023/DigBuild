@@ -19,11 +19,17 @@ public class Chunk {
     private int[][] surfaceHeights =
         new int[WIDTH][DEPTH];
 
+    public static long seed = 904385943;
+
     private static final PerlinNoise noise =
-        new PerlinNoise(032153874338666223);
+        new PerlinNoise(seed);
+
+
 
     private int chunkX;
     private int chunkZ;
+
+
 
     public Chunk(int chunkX, int chunkZ) {
         this.chunkX = chunkX;
@@ -275,7 +281,7 @@ public class Chunk {
 
         // Each ravine has a different centre Z and winding path.
         Random random = new Random(
-            81723L + ravineIndex * 928371L
+            seed + ravineIndex * 928371L
         );
 
         double baseZ = ravineIndex * 47.0
@@ -404,7 +410,7 @@ public class Chunk {
     private void generateCoal() {
 
         Random random = new Random(
-            10290138L
+            seed
                 + chunkX * 341873128712L
                 + chunkZ * 132897987541L
         );
@@ -476,13 +482,13 @@ public class Chunk {
     private void generateIron() {
 
         Random random = new Random(
-            102393438L
+            seed
                 + chunkX * 341873128712L
                 + chunkZ * 132897987541L
         );
 
         // Number of veins generated in this chunk
-        int veinCount = 19;
+        int veinCount = 20;
 
         for (int vein = 0; vein < veinCount; vein++) {
 
@@ -490,7 +496,6 @@ public class Chunk {
             int x = random.nextInt(WIDTH);
             int z = random.nextInt(DEPTH);
 
-            
             int surfaceHeight = surfaceHeights[x][z];
 
             // Keep the starting point underground
@@ -498,7 +503,7 @@ public class Chunk {
                 continue;
             }
 
-            int y = 4 + random.nextInt(surfaceHeight - 10);
+            int y = 4 + random.nextInt(surfaceHeight - 4);
 
             // Each vein contains a handful of blocks
             int veinSize = 2 + random.nextInt(5);

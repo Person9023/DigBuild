@@ -867,11 +867,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
         crosshairBatch.getTransformMatrix().idt();
 
 
-// Size of the crosshair on screen
+        // Size of the crosshair on screen
         float crosshairSize = 18f;
 
 
-// Calculate exact centre
+        // Calculate exact centre
         float crosshairX =
             (screenWidth - crosshairSize) / 2f;
 
