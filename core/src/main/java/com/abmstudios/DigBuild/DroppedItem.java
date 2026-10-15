@@ -254,6 +254,14 @@ public class DroppedItem {
             return RenderType.BLOCK;
         }
 
+        if (item == Item.IRON_ORE) {
+            return RenderType.BLOCK;
+        }
+
+        if (item == Item.FURNACE) {
+            return RenderType.BLOCK;
+        }
+
         // Sticks and future tools/weapons
         // will be rendered as flat/extruded items.
         return RenderType.FLAT;
