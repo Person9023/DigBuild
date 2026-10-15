@@ -17,7 +17,7 @@ public class DayNightCycle {
      *
      * Holding T makes the day/night cycle 30x faster.
      */
-    private static final float DEBUG_SPEED = 30f;
+    private static final float DEBUG_SPEED = 40f;
 
     private float timeOfDay = 0.25f;
 
