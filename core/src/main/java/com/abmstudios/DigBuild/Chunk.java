@@ -20,7 +20,7 @@ public class Chunk {
         new int[WIDTH][DEPTH];
 
     private static final PerlinNoise noise =
-        new PerlinNoise(12345);
+        new PerlinNoise(032947182354553);
 
     private int chunkX;
     private int chunkZ;
