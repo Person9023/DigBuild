@@ -20,7 +20,7 @@ public class Chunk {
         new int[WIDTH][DEPTH];
 
     private static final PerlinNoise noise =
-        new PerlinNoise(032947182354553);
+        new PerlinNoise(032153874338666223);
 
     private int chunkX;
     private int chunkZ;
@@ -482,7 +482,7 @@ public class Chunk {
         );
 
         // Number of veins generated in this chunk
-        int veinCount = 20;
+        int veinCount = 19;
 
         for (int vein = 0; vein < veinCount; vein++) {
 
