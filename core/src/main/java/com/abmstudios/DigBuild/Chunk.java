@@ -490,6 +490,7 @@ public class Chunk {
             int x = random.nextInt(WIDTH);
             int z = random.nextInt(DEPTH);
 
+            
             int surfaceHeight = surfaceHeights[x][z];
 
             // Keep the starting point underground
@@ -497,7 +498,7 @@ public class Chunk {
                 continue;
             }
 
-            int y = 4 + random.nextInt(surfaceHeight - 4);
+            int y = 4 + random.nextInt(surfaceHeight - 10);
 
             // Each vein contains a handful of blocks
             int veinSize = 2 + random.nextInt(5);
