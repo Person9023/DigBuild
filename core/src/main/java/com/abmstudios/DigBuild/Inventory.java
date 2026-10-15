@@ -231,7 +231,7 @@ public class Inventory {
 
             Gdx.app.error(
                 "Inventory",
-                "Failed to save inventory",
+                "Failed to save inventory, this may be due to glitched items in your inventory or a problem with inventory.dat",
                 e
             );
         }
@@ -265,7 +265,7 @@ public class Inventory {
             if (version != SAVE_VERSION) {
 
                 throw new IOException(
-                    "Unsupported inventory save version: "
+                    "Inventory Save Version Mismatch with Game Save Version: "
                         + version
                 );
             }
@@ -338,7 +338,7 @@ public class Inventory {
 
             Gdx.app.error(
                 "Inventory",
-                "Failed to load inventory",
+                "Failed to load inventory - probably an error with your game files, check inventory.dat ",
                 e
             );
         }
