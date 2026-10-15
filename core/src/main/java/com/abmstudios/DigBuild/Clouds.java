@@ -42,21 +42,25 @@ public class Clouds {
     /*
      * Clouds are kept inside this distance from
      * the player.
-     *
-     * This is NOT a world limit.
      */
+    
+    
+
     private static final float CLOUD_RANGE = 350f;
 
     /*
      * How many clouds exist at once.
      */
-    private static final int CLOUD_COUNT = 35;
+    Random r = new Random();
+    int low = 12;
+    int high = 59;
+    private static final int CLOUD_COUNT = r.nextInt(high-low) + low;;
 
     /*
      * Cloud movement speed.
      */
-    private static final float CLOUD_SPEED_MIN = 1.0f;
-    private static final float CLOUD_SPEED_MAX = 2.0f;
+    private static final float CLOUD_SPEED_MIN = 0.5f;
+    private static final float CLOUD_SPEED_MAX = 2.5f;
 
     public Clouds() {
 
@@ -147,7 +151,7 @@ public class Clouds {
      */
     private void createCloudPuffs(Cloud cloud) {
 
-        int puffCount = MathUtils.random(5, 10);
+        int puffCount = MathUtils.random(3, 7);
 
         for (int p = 0; p < puffCount; p++) {
 
